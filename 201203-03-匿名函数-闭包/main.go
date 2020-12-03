@@ -14,8 +14,11 @@ var (
 func AddUpper() func(int) int {
 	//TODO ======= 以下是闭包
 	var n int = 10
+	var str string = "hello"
 	return func (x int) int {
 		n = n + x
+		str += string(36)
+		fmt.Println("str=", str)
 		return n
 	}
 	//TODO ======= 以上是闭包
@@ -56,5 +59,6 @@ func main() {
 	//1、AddUpper 是一个函数，返回的数据类型是 func (int) int
 	//2、闭包的说明：
 	//3、闭包是类，函数是操作，n是字段，函数和它使用到的n构成了闭包
-	//4、
+	//4、当我们反复的调用 add 函数时，因为 n 是初始化一次，因此每调用一次就进行累计一次
+	//5、闭包的关键就是要分析出返回的函数使用（引用）到哪些变量，他们一起构成闭包
 }

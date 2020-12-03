@@ -2,26 +2,39 @@ package main
 
 import (
 	"fmt"
-	"Learn/201203-02-init函数/utils"
+	"strings"
 )
 
-var age = test()
-
-func test() int {
-	fmt.Println("==================== 执行顺序 ==================")
-	fmt.Println("全局变量定义...")
-	return 90
+//闭包
+func makeSuffix(suffix string) func (string) string {
+	return func (name string) string {
+		if !strings.HasSuffix(name, suffix) {
+			return name + suffix
+		}
+		return name
+	}	
 }
 
-func init()  {
-	fmt.Println("初始化...")
+//传统方式
+func makeSuffix2(suffix string, name string) string {
+	if !strings.HasSuffix(name, suffix) {
+		return name + suffix
+	}
+	return name
 }
 
 func main()  {
-	fmt.Println("main函数...")
-	//TODO 如果一个文件同时包含全局变量定义，init函数和main函数，
-	//TODO 则执行流程是：全局变量订单 -> init 函数 -> main 函数
-	fmt.Println("======================================")
+	fmt.Println("==================================== 闭包 ====================================")
+	//TODO 闭包的最佳实践 syrings.HasSuffix 判断某个字符串是否包含指定的后缀
+
+	makeSuffix := makeSuffix(".jpg")
+	fmt.Println("文件名处理后：", makeSuffix("winter"))
+	fmt.Println("文件名处理后：", makeSuffix("winter2.jpg"))
+	fmt.Println("文件名处理后：", makeSuffix("winter2.png"))
+
+	fmt.Println("==================================== 传统方式 ====================================")
+	fmt.Println("文件名处理后：", makeSuffix2(".jpg", "winter"))
+	fmt.Println("文件名处理后：", makeSuffix2(".jpg", "winter2.jpg"))
+	fmt.Println("文件名处理后：", makeSuffix2(".jpg", "winter2.png"))
 	
-	fmt.Println("Age=", utils.Age, "Name=", utils.Name)
 }

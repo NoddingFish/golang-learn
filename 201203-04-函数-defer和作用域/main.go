@@ -28,4 +28,15 @@ func main() {
 	//1、值传递 - 值拷贝 【基本数据类型 int float bool string 数组 结构体-struct】
 	//2、引用传递 - 地址拷贝【指针、slice切片、map、管道chan、interface等】
 	//注意：一般引用传递效率更高
+
+	//TODO 局部变量和全局变量
+	// 局部变量 只能作用于函数的内部
+	// 全局变量 可以作用于整个包，如果首字母是大写，则作用域在整个程序中有效
+	// 变量再代码块中，比如 for / if 中定义的变量，那其作用于只在于该代码块中
+	var num3 int = 1
+	if num3 > 0 {
+		res3 := 89
+		fmt.Println("res3=", res3)
+	}
+	// fmt.Println("res3=", res3)//if 外使用 res3 报错
 }

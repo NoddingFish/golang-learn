@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt" //如果我们没有使用一个包，但是不想去掉，前面加 _
+	"errors"
 )
 
 func test()  {
@@ -19,10 +20,25 @@ func test()  {
 	fmt.Println("res=", res)
 }
 
+func readConf(name string) (err error) {
+	if name == "config.ini" {
+		return nil
+	} else {
+		return errors.New("读取文件错误...")
+	}
+}
+
 func main() {
 	//TODO 错误处理 - golang 不支持传统的 try ... catch
 	//TODO 处理方式：defer, panic, recover
 	test()
 	fmt.Println("main()下面的代码...")
 
+	//TODO 自定义错误
+	err := readConf("config2.ini")
+	if err != nil {
+		//报错，终止程序
+		panic(err)
+	}
+	fmt.Println("自定义错误继续执行代码...")
 }

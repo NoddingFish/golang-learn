@@ -9,3 +9,15 @@ type CustomerService struct {
 	customers []model.Customer
 	customerNum int//表示该切片有多少客户
 }
+
+func NewCustomerService() *CustomerService {
+	customerService := &CustomerService{}
+	customerService.customerNum = 1
+	customer := model.NewCustomer(1, "张三", "男", 20, "112", "zhangsan@sohu.com")
+	customerService.customers = append(customerService.customers, customer)
+	return customerService
+}
+
+func (this *CustomerService) List() []model.Customer {
+	return this.customers
+}

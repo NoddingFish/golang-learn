@@ -31,3 +31,24 @@ func (this *CustomerService) Add(customer model.Customer) bool {
 	this.customers = append(this.customers, customer)
 	return true
 }
+
+func (this *CustomerService) Delete(id int) bool {
+	index := this.FindById(id)
+	if index == -1 {
+		return false
+	}
+	//删除切片的元素
+	this.customers = append(this.customers[:index], this.customers[index+1:]...)
+	return true
+}
+
+//根据id查找客户切片中对应的下标，若没有返回-1
+func (this *CustomerService) FindById(id int) int {
+	index := -1
+	for ind, customer := range this.customers {
+		if customer.Id == id {
+			index = ind
+		}
+	}
+	return index
+}

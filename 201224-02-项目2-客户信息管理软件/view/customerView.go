@@ -59,6 +59,49 @@ func (this *customerView) add()  {
 	fmt.Println()
 }
 
+func (this *customerView) delete()  {
+	fmt.Println("------------------------- 删除客户 -----------------------")
+	fmt.Println("请输入需要删除的客户编号（-1）退出：")
+	id := -1
+	fmt.Scanln(&id)
+	if id == -1 {
+		return
+	}
+
+	fmt.Println("确认是否删除(Y/N)：")
+	choice := ""
+	fmt.Scanln(&choice)
+	if choice == "y" || choice == "Y" {
+		//调用 customerService 的 Delete 方法
+		if this.customerService.Delete(id) {
+			fmt.Println("------------------------- 删除成功 -----------------------")
+		} else {
+			fmt.Println("------------------------- 删除失败，请重新输入...")
+		}
+	}
+	
+	fmt.Println("----------------------- 客户列表完成 -----------------------")
+	fmt.Println()
+	fmt.Println()
+	fmt.Println()
+}
+
+func (this *customerView) exit()  {
+	fmt.Println("确认是否退出(Y/N)：")
+	choiceKey := ""
+	for {
+		fmt.Scanln(&choiceKey)
+		if choiceKey == "Y" || choiceKey == "y" || choiceKey == "N" || choiceKey == "n" {
+			break
+		}
+		fmt.Println("你的输入有误，确认是否退出(Y/N)：")
+	}
+	
+	if choiceKey == "Y" || choiceKey == "y" {
+		this.loop = false
+	}
+}
+
 func (cv *customerView) mainMenu()  {
 	for {
 		fmt.Println("----------------------- 客户信息管理软件 -----------------------")
@@ -66,27 +109,24 @@ func (cv *customerView) mainMenu()  {
 		fmt.Println("                           2 修改客户")
 		fmt.Println("                           3 删除客户")
 		fmt.Println("                           4 客户列表")
-		fmt.Println("                           4 退    出")
+		fmt.Println("                           5 退    出")
 		fmt.Print("请选择（1-5）：")
 
 		fmt.Scanln(&cv.key)
 
 		switch cv.key {
 		case 1:
-			fmt.Println("1...")
 			cv.add()
 		case 2:
 			fmt.Println("2...")
 			// cv.income()
 		case 3:
-			fmt.Println("3...")
-			// cv.pay()
+			cv.delete()
 		case 4:
 			fmt.Println("4...")
 			cv.list()
 		case 5:
-			fmt.Println("5...")
-			// cv.exit()
+			cv.exit()
 		default:
 			fmt.Println("请输入正确的选项...")
 		}

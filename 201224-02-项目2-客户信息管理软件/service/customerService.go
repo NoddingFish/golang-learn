@@ -18,6 +18,16 @@ func NewCustomerService() *CustomerService {
 	return customerService
 }
 
+//返回客户切片
 func (this *CustomerService) List() []model.Customer {
 	return this.customers
+}
+
+//添加客户倒 customer 中
+func (this *CustomerService) Add(customer model.Customer) bool {
+	//确定一个分配id的规则
+	this.customerNum++
+	customer.Id = this.customerNum
+	this.customers = append(this.customers, customer)
+	return true
 }

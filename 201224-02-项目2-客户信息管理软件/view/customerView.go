@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"Learn/201224-02-项目2-客户信息管理软件/service"
+	"Learn/201224-02-项目2-客户信息管理软件/model"
 )
 
 type customerView struct {
@@ -24,6 +25,40 @@ func (this *customerView) list()  {
 	fmt.Println()
 }
 
+func (this *customerView) add()  {
+	fmt.Println("------------------------- 添加客户 -----------------------")
+	fmt.Print("姓名：")
+	name := ""
+	fmt.Scanln(&name)
+
+	fmt.Print("性别：")
+	gender := ""
+	fmt.Scanln(&gender)
+
+	fmt.Print("年龄：")
+	age := 0
+	fmt.Scanln(&age)
+
+	fmt.Print("电话：")
+	phone := ""
+	fmt.Scanln(&phone)
+
+	fmt.Print("Email：")
+	email := ""
+	fmt.Scanln(&email)
+
+	//注意id没有输入，需要是唯一的，系统分配
+	customers := model.NewCustomer2(name, gender, age, phone, email)
+	if this.customerService.Add(customers) {
+		fmt.Println("----------------------- 添加完成 -----------------------")
+	} else {
+		fmt.Println("----------------------- 添加失败 -----------------------")
+	}
+	fmt.Println()
+	fmt.Println()
+	fmt.Println()
+}
+
 func (cv *customerView) mainMenu()  {
 	for {
 		fmt.Println("----------------------- 客户信息管理软件 -----------------------")
@@ -39,7 +74,7 @@ func (cv *customerView) mainMenu()  {
 		switch cv.key {
 		case 1:
 			fmt.Println("1...")
-			// cv.showDetails()
+			cv.add()
 		case 2:
 			fmt.Println("2...")
 			// cv.income()
